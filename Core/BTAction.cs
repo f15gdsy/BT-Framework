@@ -6,13 +6,20 @@ namespace BT {
 	public class BTAction : BTNode {
 		private BTActionStatus status = BTActionStatus.Ready;
 		
-		
 		public BTAction (BTPrecondition precondition = null) : base (precondition) {}
 		
 //		protected virtual void Enter () {Debug.Log("Enter "+name);}
 //		protected virtual void Exit () {Debug.Log("Exit "+name);}
-		protected virtual void Enter () {}
-		protected virtual void Exit () {}
+		protected virtual void Enter () {
+			if (BTConfiguration.ENABLE_LOG) {
+				Debug.Log("Enter " + this.GetType().ToString());
+			}
+		}
+		protected virtual void Exit () {
+			if (BTConfiguration.ENABLE_LOG) {
+				Debug.Log("Exit " + this.GetType().ToString());
+			}
+		}
 		protected virtual BTResult Execute () {
 			return BTResult.Running;
 		}
