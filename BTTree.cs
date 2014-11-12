@@ -5,13 +5,13 @@ using BT;
 
 // How to use:
 // 1. Initiate values in the database for the children to use.
-// 2. Initiate BT root
+// 2. Initiate BT _root
 // 3. Some actions & preconditions that will be used later
 // 4. Add children nodes
-// 5. Activate the root, including the children nodes' initialization
+// 5. Activate the _root, including the children nodes' initialization
 
-public class BTTree : MonoBehaviour {
-	protected BTNode root;
+public abstract class BTTree : MonoBehaviour {
+	protected BTNode _root = null;
 	[HideInInspector]
 	public Database database;
 
@@ -23,7 +23,7 @@ public class BTTree : MonoBehaviour {
 	void Awake () {
 		Init();
 
-		root.Activate(database);
+		_root.Activate(database);
 	}
 	void Update () {
 		if (!isRunning) return;
@@ -32,14 +32,14 @@ public class BTTree : MonoBehaviour {
 			Reset();	
 			database.SetData<bool>(Jargon.ShouldReset, false);
 		}
-		if (root.Evaluate()) {
-			root.Tick();	
+		if (_root.Evaluate()) {
+			_root.Tick();	
 		}
 	}
 
 	void OnDestroy () {
-		if (root != null) {
-			root.Clear();
+		if (_root != null) {
+			_root.Clear();
 		}
 	}
 
@@ -55,6 +55,6 @@ public class BTTree : MonoBehaviour {
 	}
 
 	protected void Reset () {
-		root.Clear();	
+		_root.Clear();	
 	}
 }
