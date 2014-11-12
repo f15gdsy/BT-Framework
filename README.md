@@ -20,3 +20,5 @@ It's this simple!
 Ludum Dare 48-hour game jam entry: [Swordsman] (http://ludumdare.com/compo/ludum-dare-30/?action=preview&uid=24851)
 
 Code Demo: [BT Test] (https://github.com/f15gdsy/BT-Test)
+
+Platformer Demo: [Archer] (https://dl.dropboxusercontent.com/u/27907965/games/Archer/Build_0/Build_0.html)
