@@ -12,13 +12,16 @@ using BT;
 
 public abstract class BTTree : MonoBehaviour {
 	protected BTNode _root = null;
+
 	[HideInInspector]
 	public Database database;
 
 	[HideInInspector]
 	public bool isRunning = true;
 
-	protected int _resetDataId;
+	public const string RESET = "Rest";
+	private static int _resetId;
+
 
 	void Awake () {
 		Init();
@@ -28,12 +31,14 @@ public abstract class BTTree : MonoBehaviour {
 	void Update () {
 		if (!isRunning) return;
 		
-		if (database.GetData<bool>(Jargon.ShouldReset)) {
+		if (database.GetData<bool>(RESET)) {
 			Reset();	
-			database.SetData<bool>(Jargon.ShouldReset, false);
+			database.SetData<bool>(RESET, false);
 		}
+
+		// Iterate the BT tree now!
 		if (_root.Evaluate()) {
-			_root.Tick();	
+			_root.Tick();
 		}
 	}
 
@@ -50,8 +55,8 @@ public abstract class BTTree : MonoBehaviour {
 			database = gameObject.AddComponent<Database>();
 		}
 
-		_resetDataId = database.GetDataId(Jargon.ShouldReset);
-		database.SetData<bool>(_resetDataId, false);
+		_resetId = database.GetDataId(RESET);
+		database.SetData<bool>(_resetId, false);
 	}
 
 	protected void Reset () {
