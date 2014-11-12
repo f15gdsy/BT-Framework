@@ -59,6 +59,14 @@ namespace BT {
 			}
 			return result;
 		}
+
+		public override void AddChild (BTNode aNode) {
+			Debug.LogError("BTAction: Cannot add a node into BTAction.");
+		}
+
+		public override void RemoveChild (BTNode aNode) {
+			Debug.LogError("BTAction: Cannot remove a node into BTAction.");
+		}
 		
 		
 		private enum BTActionStatus {
