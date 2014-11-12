@@ -3,14 +3,20 @@ using System.Collections;
 
 namespace BT {
 
-	// Inherite from BTNode means the precondition can be used as a tree node too.
+	/// <summary>
+	/// BT precondition is used to check if a BTNode can be entered.
+	/// Inherit from BTNode means it can be used as a normal node too,
+	/// 	it is useful when you need to check some condition to end some logics
+	/// 	where it is difficult to add pre condition to the action / logic nodes (due to reuse problem).
+	/// </summary>
 	public abstract class BTPrecondition : BTNode {
 
 		public BTPrecondition () : base (null) {}
-		
+
+		// Override to provide the condition check.
 		public abstract bool Check ();
 
-		// TODO: Check logics
+		// Functions as a node
 		public override BTResult Tick () {
 			bool success = Check();
 			if (success) {
@@ -24,6 +30,9 @@ namespace BT {
 
 
 
+	/// <summary>
+	/// A pre condition that uses database.
+	/// </summary>
 	public abstract class BTPreconditionUseDB : BTPrecondition {
 		protected string _dataToCheck;
 		protected int _dataIdToCheck;
@@ -42,7 +51,9 @@ namespace BT {
 
 
 
-
+	/// <summary>
+	/// Used to check if the float data in the database is less than / equal to / greater than the data passed in through constructor.
+	/// </summary>
 	public class BTPreconditionFloat : BTPreconditionUseDB {
 		public float rhs;
 		private FloatFunction func;
@@ -77,7 +88,9 @@ namespace BT {
 
 
 
-
+	/// <summary>
+	/// Used to check if the boolean data in database is equal to the data passed in through constructor
+	/// </summary>
 	public class BTPreconditionBool : BTPreconditionUseDB {
 		public bool rhs;
 		
@@ -93,7 +106,9 @@ namespace BT {
 
 
 
-
+	/// <summary>
+	/// Used to check if the boolean data in database is null
+	/// </summary>
 	public class BTPreconditionNull : BTPreconditionUseDB {
 		private NullFunction func;
 		

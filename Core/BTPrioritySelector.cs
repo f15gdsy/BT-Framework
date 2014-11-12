@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace BT {
-	
+
+	/// <summary>
+	/// BTPrioritySelector selects the first sussessfully evaluated child as the active child.
+	/// </summary>
 	public class BTPrioritySelector : BTNode {
 		
 		private BTNode activeChild;

@@ -5,6 +5,13 @@ using BT;
 
 namespace BT {
 
+	/// <summary>
+	/// BTParallel evaluates all children, if any of them fails the evaluation, BTParallel fails.
+	/// 
+	/// BTParallel ticks all children, if 
+	/// 	1. ParallelFunction.And: 	ends when all children ends
+	/// 	2. ParallelFunction.Or: 	ends when any of the children ends
+	/// </summary>
 	public class BTParallel : BTNode {
 		protected List<BTResult> results;
 		protected ParallelFunction func;

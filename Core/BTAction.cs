@@ -3,23 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace BT {
+
+	/// <summary>
+	/// BTAction is the base class for behavior node.
+	/// 
+	/// It cannot add / remove child.
+	/// 
+	/// Override the following to build a behavior (all are optional):
+	/// - Enter
+	/// - Execute
+	/// - Exit
+	/// - Clear
+	/// </summary>
 	public class BTAction : BTNode {
 		private BTActionStatus status = BTActionStatus.Ready;
 		
 		public BTAction (BTPrecondition precondition = null) : base (precondition) {}
-		
-//		protected virtual void Enter () {Debug.Log("Enter "+name);}
-//		protected virtual void Exit () {Debug.Log("Exit "+name);}
+
+
 		protected virtual void Enter () {
-			if (BTConfiguration.ENABLE_LOG) {
+			if (BTConfiguration.ENABLE_LOG) {	// For debug
 				Debug.Log("Enter " + this.GetType().ToString());
 			}
 		}
+
 		protected virtual void Exit () {
-			if (BTConfiguration.ENABLE_LOG) {
+			if (BTConfiguration.ENABLE_LOG) {	// For debug
 				Debug.Log("Exit " + this.GetType().ToString());
 			}
 		}
+
 		protected virtual BTResult Execute () {
 			return BTResult.Running;
 		}

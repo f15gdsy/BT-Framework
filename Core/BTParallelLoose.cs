@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 namespace BT {
 
+	/// <summary>
+	/// BTParallelLoose evaluates all children, if all children fails evaluation, it fails. 
+	/// Any child passes the evaluation will be regarded as active.
+	/// 
+	/// BTParallelLoose ticks all active children, if all children ends, it ends.
+	/// </summary>
 	public class BTParallelLoose : BTNode {
 
 		private List<BTNode> activeChildren = new List<BTNode>();

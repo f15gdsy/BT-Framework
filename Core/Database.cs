@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System;
 
 public class Database : MonoBehaviour {
-	
+
+	// _database & _dataNames are 1 to 1 relationship
 	private List<object> _database = new List<object>();
 	private List<string> _dataNames = new List<string>();
 	

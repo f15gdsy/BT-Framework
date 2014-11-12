@@ -2,10 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 namespace BT {
-	
-	// Sequence evaluteas the current active child, or the first child (if no active child)
-	// Sequence ticks the current active child, or the first child (if no active child available),
-	// and if it's result is succeeded, then change the active child to the next one.
+
+	/// <summary>
+	/// BTSequence evaluteas the current active child, or the first child (if no active child).
+	/// 
+	/// If passed the evaluation, BTSequence ticks the current active child, or the first child (if no active child available),
+	/// and if it's result is BTEnded, then change the active child to the next one.
+	/// 
+	/// </summary>
 	public class BTSequence : BTNode {
 	
 		private BTNode activeChild;
