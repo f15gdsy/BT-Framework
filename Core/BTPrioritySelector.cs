@@ -35,6 +35,10 @@ namespace BT {
 		}
 		
 		public override BTResult Tick () {
+			if (activeChild == null) {
+				return BTResult.Ended;
+			}
+
 			BTResult result = activeChild.Tick();
 			if (result != BTResult.Running) {
 				activeChild.Clear();
