@@ -4,22 +4,28 @@ using System.Collections.Generic;
 
 namespace BT {
 
+	/// <summary>
+	/// BT node is the base of any nodes in BT framework.
+	/// </summary>
 	public abstract class BTNode {
-		public List<BTNode> children;
+
+		protected List<BTNode> _children;
+		public List<BTNode> children {get{return _children;}}
+
+		// Used to check the node can be entered.
 		public BTPrecondition precondition;
+
 		public Database database;
 
-		private BTNode _parent;
-		public BTNode parent {
-			get{return _parent;}
-			set{_parent = value;}
-		}
-
+		// Cooldown function.
 		public float interval = 0;
 		private float _lastTimeEvaluated = 0;
 
 		private bool _activated;
-		public bool activated {get{return _activated;}}
+		public bool activated {
+			get{return _activated;}
+			set{_activated = value;}
+		}
 
 
 		public BTNode () : this (null) {}
@@ -28,27 +34,33 @@ namespace BT {
 			this.precondition = precondition;
 		}
 		
-		// to use with BTNode's constructor to provide initialization delay
-		public virtual void Init () {}
+		// To use with BTNode's constructor to provide initialization delay
+		// public virtual void Init () {}
+
 		public bool Evaluate () {
-			bool timerOk = (Time.time - _lastTimeEvaluated) > interval;
-			if (timerOk) {
-				_lastTimeEvaluated = Time.time;
-			}
-			return timerOk && (precondition == null || precondition.Check()) && DoEvaluate();
+			bool coolDownOK = CheckTimer();
+
+			return coolDownOK && (precondition == null || precondition.Check()) && DoEvaluate();
 		}
+
+		protected virtual bool DoEvaluate () {return _activated;}
+
 		public virtual BTResult Tick () {return BTResult.Ended;}
+
 		public virtual void Clear () {}
 		
-		protected virtual bool DoEvaluate () {return true;}
-		
 		public virtual void AddChild (BTNode aNode) {
-			if (children == null) {
-				children = new List<BTNode>();	
+			if (_children == null) {
+				_children = new List<BTNode>();	
 			}
 			if (aNode != null) {
-				children.Add(aNode);
-				aNode.parent = this;
+				_children.Add(aNode);
+			}
+		}
+
+		public virtual void RemoveChild (BTNode aNode) {
+			if (_children != null && aNode != null) {
+				_children.Remove(aNode);
 			}
 		}
 		
@@ -56,19 +68,28 @@ namespace BT {
 			if (_activated) return ;
 
 			this.database = database;
-			Init();
-			
+//			Init();
+
 			if (precondition != null) {
 				precondition.Activate(database);
 			}
-			if (children != null) {
-				foreach (BTNode child in children) {
+			if (_children != null) {
+				foreach (BTNode child in _children) {
 					child.Activate(database);
 				}
 			}
 
 			_activated = true;
 		}	
+
+		// Check if cooldown is finished.
+		private bool CheckTimer () {
+			if (Time.time - _lastTimeEvaluated > interval) {
+				_lastTimeEvaluated = Time.time;
+				return true;
+			}
+			return false;
+		}
 	}
 	
 	
