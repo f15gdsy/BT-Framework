@@ -22,14 +22,14 @@ namespace BT {
 
 
 		protected virtual void Enter () {
-			if (BTConfiguration.ENABLE_LOG) {	// For debug
-				Debug.Log("Enter " + this.GetType().ToString());
+			if (BTConfiguration.ENABLE_BTACTION_LOG) {	// For debug
+				Debug.Log("Enter " + this.name + " [" + this.GetType().ToString() + "]");
 			}
 		}
 
 		protected virtual void Exit () {
-			if (BTConfiguration.ENABLE_LOG) {	// For debug
-				Debug.Log("Exit " + this.GetType().ToString());
+			if (BTConfiguration.ENABLE_BTACTION_LOG) {	// For debug
+				Debug.Log("Exit " + this.name + " [" + this.GetType().ToString() + "]");
 			}
 		}
 

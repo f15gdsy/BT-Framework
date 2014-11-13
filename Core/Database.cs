@@ -20,7 +20,9 @@ public class Database : MonoBehaviour {
 
 	// Should use this function to get data!
 	public T GetData<T> (int dataId) {
-//		Debug.Log("Database: getting data for " + _dataNames[dataId]);
+		if (BT.BTConfiguration.ENABLE_DATABASE_LOG) {
+			Debug.Log("Database: getting data for " + _dataNames[dataId]);
+		}
 		return (T) _database[dataId];
 	}
 	

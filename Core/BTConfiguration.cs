@@ -4,7 +4,9 @@ using System.Collections;
 namespace BT {
 
 	public static class BTConfiguration {
-		public static bool ENABLE_LOG = false;
+		// Debug
+		public static bool ENABLE_BTACTION_LOG = false;
+		public static bool ENABLE_DATABASE_LOG = false;
 	}
 	
 }
