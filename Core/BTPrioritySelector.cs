@@ -9,7 +9,7 @@ namespace BT {
 	/// </summary>
 	public class BTPrioritySelector : BTNode {
 		
-		private BTNode activeChild;
+		private BTNode _activeChild;
 
 		public BTPrioritySelector (BTPrecondition precondition = null) : base (precondition) {}
 
@@ -17,31 +17,33 @@ namespace BT {
 		protected override bool DoEvaluate () {
 			foreach (BTNode child in children) {
 				if (child.Evaluate()) {
-					if (activeChild != null && activeChild != child) {
-						activeChild.Clear();	
+					if (_activeChild != null && _activeChild != child) {
+						_activeChild.Clear();	
 					}
-					activeChild = child;
+					_activeChild = child;
 					return true;
 				}
 			}
+			_activeChild = null;
 			return false;
 		}
 		
 		public override void Clear () {
-			if (activeChild != null) {
-				activeChild.Clear();
-				activeChild = null;
+			if (_activeChild != null) {
+				_activeChild.Clear();
+				_activeChild = null;
 			}
 		}
 		
 		public override BTResult Tick () {
-			if (activeChild == null) {
+			if (_activeChild == null) {
 				return BTResult.Ended;
 			}
 
-			BTResult result = activeChild.Tick();
+			BTResult result = _activeChild.Tick();
 			if (result != BTResult.Running) {
-				activeChild.Clear();
+				_activeChild.Clear();
+				_activeChild = null;
 			}
 			return result;
 		}
