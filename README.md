@@ -4,9 +4,35 @@ BT-Framework
 BT Framework is a behavior tree framework that can be used to create game AI. It's written for Unity3d.
 
 ## How to use
-1. Create a class inheriting from BTTree, and construct the behavior tree in Init function.
-2. Drag the class to a GameObject.
-3. Create various actions and pre-conditions inheriting from BTAction and BTPrecondition.
+
+1. Create various actions and pre-conditions inheriting from BTAction and BTPrecondition.
+
+2. Create a class inheriting from BTTree, and construct the behavior tree in Init function.
+```csharp
+// A class inheriting from BTTree
+protected override void Init () {
+   // Initialize base class
+   base.Init();
+   
+   // Create root node
+   _root = new BTPrioritySelector();
+   
+   // ---Construct the behavior tree---
+
+   // Escape when boss is close
+   BossIsClosePrecondition bossClose = new BossIsClosePrecondition();
+   _root.AddChild (new DoRun(bossClose));
+   
+   // Fight when a goblin is close
+   GoblinIsClosePrecondition goblinClose = new GoblinClosePrecondition();
+   _root.AddChild (new DoFight(goblinClose));
+   
+   // Do nothing when boss & goblin not around
+   _root.AddChild (new Idle());
+
+}
+```
+3. Drag the class to a GameObject.
 
 It's this simple!
 
