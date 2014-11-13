@@ -21,13 +21,13 @@ public class ResetData<T> : BTAction {
 	private bool _shouldClear;
 	
 	
-	public ResetData (string dataToReset, T defaultData, bool shouldClear = false) : base (null) {
+	public ResetData (string dataToReset, T defaultData, bool shouldClear = false, BTPrecondition precondition = null) : base (precondition) {
 		_dataToReset = dataToReset;
 		_defaultData = defaultData;
 		_shouldClear = shouldClear;
 	}
 
-	public ResetData (string dataToReset, string targetData, bool shouldClear = false) : base (null) {
+	public ResetData (string dataToReset, string targetData, bool shouldClear = false, BTPrecondition precondition = null) : base (precondition) {
 		_dataToReset = dataToReset;
 		_targetData = targetData;
 		_shouldClear = shouldClear;
