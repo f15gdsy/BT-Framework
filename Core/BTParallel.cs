@@ -11,16 +11,18 @@ namespace BT {
 	/// BTParallel ticks all children, if 
 	/// 	1. ParallelFunction.And: 	ends when all children ends
 	/// 	2. ParallelFunction.Or: 	ends when any of the children ends
+	/// 
+	/// NOTE: Order of child node added does matter!
 	/// </summary>
 	public class BTParallel : BTNode {
-		protected List<BTResult> results;
-		protected ParallelFunction func;
+		protected List<BTResult> _results;
+		protected ParallelFunction _func;
 		
 		public BTParallel (ParallelFunction func) : this (func, null) {}
 
 		public BTParallel (ParallelFunction func, BTPrecondition precondition) : base (precondition) {
-			results = new List<BTResult>();
-			this.func = func;
+			_results = new List<BTResult>();
+			this._func = func;
 		}
 
 		protected override bool DoEvaluate () {
@@ -37,22 +39,21 @@ namespace BT {
 			
 			for (int i=0; i<children.Count; i++) {
 				
-				if (func == ParallelFunction.And) {
-					if (results[i] == BTResult.Running) {
-						results[i] = children[i].Tick();	
+				if (_func == ParallelFunction.And) {
+					if (_results[i] == BTResult.Running) {
+						_results[i] = children[i].Tick();	
 					}
-					if (results[i] != BTResult.Running) {
+					if (_results[i] != BTResult.Running) {
 						endingResultCount++;	
 					}
 				}
 				else {
-					if (results[i] == BTResult.Running) {
-						results[i] = children[i].Tick();	
+					if (_results[i] == BTResult.Running) {
+						_results[i] = children[i].Tick();	
 					}
-					if (results[i] != BTResult.Running) {
-						BTResult result = results[i];
+					if (_results[i] != BTResult.Running) {
 						ResetResults();
-						return result;
+						return BTResult.Ended;
 					}
 				}
 			}
@@ -73,12 +74,18 @@ namespace BT {
 		
 		public override void AddChild (BTNode aNode) {
 			base.AddChild (aNode);
-			results.Add(BTResult.Running);
+			_results.Add(BTResult.Running);
+		}
+
+		public override void RemoveChild (BTNode aNode) {
+			int index = _children.IndexOf(aNode);
+			_results.RemoveAt(index);
+			base.RemoveChild (aNode);
 		}
 		
 		private void ResetResults () {
-			for (int i=0; i<results.Count; i++) {
-				results[i] = BTResult.Running;	
+			for (int i=0; i<_results.Count; i++) {
+				_results[i] = BTResult.Running;	
 			}
 		}
 		
