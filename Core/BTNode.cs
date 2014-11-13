@@ -38,10 +38,10 @@ namespace BT {
 		public bool Evaluate () {
 			bool coolDownOK = CheckTimer();
 
-			return coolDownOK && (precondition == null || precondition.Check()) && DoEvaluate();
+			return activated && coolDownOK && (precondition == null || precondition.Check()) && DoEvaluate();
 		}
 
-		protected virtual bool DoEvaluate () {return activated;}
+		protected virtual bool DoEvaluate () {return true;}
 
 		public virtual BTResult Tick () {return BTResult.Ended;}
 
