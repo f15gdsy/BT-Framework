@@ -8,8 +8,16 @@ BT Framework is a behavior tree framework that can be used to create game AI. It
 1. Create various actions and pre-conditions inheriting from BTAction and BTPrecondition.
 
 2. Create a class inheriting from BTTree, and construct the behavior tree in Init function.
+
+3. Drag the class to a GameObject.
+
+It's this simple!
+
+A simple example:
+
 ```csharp
 // A class inheriting from BTTree
+    
 protected override void Init () {
    // Initialize base class
    base.Init();
@@ -20,11 +28,11 @@ protected override void Init () {
    // ---Construct the behavior tree---
 
    // Escape when boss is close
-   BossIsClosePrecondition bossClose = new BossIsClosePrecondition();
+   DistanceClosePrecondition bossClose = new DistanceClosePrecondition("Boss");
    _root.AddChild (new DoRun(bossClose));
    
    // Fight when a goblin is close
-   GoblinIsClosePrecondition goblinClose = new GoblinClosePrecondition();
+   DistanceClosePrecondition goblinClose = new DistanceClosePrecondition("Goblin");
    _root.AddChild (new DoFight(goblinClose));
    
    // Do nothing when boss & goblin not around
@@ -32,9 +40,9 @@ protected override void Init () {
 
 }
 ```
-3. Drag the class to a GameObject.
+where DistanceClosePrecondition are user defined precondition that inherits from BTPrecondition, and
 
-It's this simple!
+DoRun, DoFight, Idle are user defined behaviors that inherit from BTAction.
 
 
 ## Benefits
