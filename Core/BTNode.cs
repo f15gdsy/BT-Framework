@@ -23,11 +23,7 @@ namespace BT {
 		public float interval = 0;
 		private float _lastTimeEvaluated = 0;
 
-		private bool _activated;
-		public bool activated {
-			get{return _activated;}
-			set{_activated = value;}
-		}
+		public bool activated;
 
 
 		public BTNode () : this (null) {}
@@ -45,7 +41,7 @@ namespace BT {
 			return coolDownOK && (precondition == null || precondition.Check()) && DoEvaluate();
 		}
 
-		protected virtual bool DoEvaluate () {return _activated;}
+		protected virtual bool DoEvaluate () {return activated;}
 
 		public virtual BTResult Tick () {return BTResult.Ended;}
 
@@ -67,7 +63,7 @@ namespace BT {
 		}
 		
 		public virtual void Activate (Database database) {
-			if (_activated) return ;
+			if (activated) return ;
 
 			this.database = database;
 //			Init();
@@ -81,7 +77,7 @@ namespace BT {
 				}
 			}
 
-			_activated = true;
+			activated = true;
 		}	
 
 		// Check if cooldown is finished.
