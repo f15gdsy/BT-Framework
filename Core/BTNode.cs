@@ -9,6 +9,8 @@ namespace BT {
 	/// </summary>
 	public abstract class BTNode {
 
+		public string name;
+
 		protected List<BTNode> _children;
 		public List<BTNode> children {get{return _children;}}
 
