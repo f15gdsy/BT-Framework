@@ -1,7 +1,7 @@
 BT-Framework
 ============
 
-BT Framework is a behavior tree framework that can be used to create game AI. It's written for Unity3d.
+BT Framework is a simple behavior tree framework that can be used to create game AI. It's written for Unity3d.
 
 ## How to use
 
