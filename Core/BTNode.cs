@@ -35,6 +35,24 @@ namespace BT {
 		// To use with BTNode's constructor to provide initialization delay
 		// public virtual void Init () {}
 
+		public virtual void Activate (Database database) {
+			if (activated) return ;
+			
+			this.database = database;
+			//			Init();
+			
+			if (precondition != null) {
+				precondition.Activate(database);
+			}
+			if (_children != null) {
+				foreach (BTNode child in _children) {
+					child.Activate(database);
+				}
+			}
+			
+			activated = true;
+		}
+
 		public bool Evaluate () {
 			bool coolDownOK = CheckTimer();
 
@@ -61,24 +79,6 @@ namespace BT {
 				_children.Remove(aNode);
 			}
 		}
-		
-		public virtual void Activate (Database database) {
-			if (activated) return ;
-
-			this.database = database;
-//			Init();
-
-			if (precondition != null) {
-				precondition.Activate(database);
-			}
-			if (_children != null) {
-				foreach (BTNode child in _children) {
-					child.Activate(database);
-				}
-			}
-
-			activated = true;
-		}	
 
 		// Check if cooldown is finished.
 		private bool CheckTimer () {
