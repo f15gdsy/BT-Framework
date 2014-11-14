@@ -3,6 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// Database is the blackboard in a classic blackboard system. 
+/// (I found the name "blackboard" a bit hard to understand so I call it database ;p)
+/// 
+/// It is the place to store data from local nodes, cross-tree nodes, and even other scripts.
+
+/// Nodes can read the data inside a database by the use of a string, or an int id of the data.
+/// The latter one is prefered for efficiency's sake.
+/// </summary>
 public class Database : MonoBehaviour {
 
 	// _database & _dataNames are 1 to 1 relationship
