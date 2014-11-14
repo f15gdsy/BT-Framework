@@ -3,7 +3,14 @@ BT-Framework
 
 BT Framework is a simple behavior tree framework that can be used to create game AI. It's written for Unity3d.
 
-## How to use
+### Features
+1. Minimum dependencies on Unity3d, so it won't pollute your inspector.
+2. Extendable to handle customized logic nodes, though classic logic nodes, like sequence, priority selector, parallel, are provided.
+3. Communication between local nodes, cross-tree nodes, and other scripts are possible by the use of blackboard system.
+4. Enter, Execute, Exit api support for action nodes.
+
+
+### How to use
 
 1. Create various actions and pre-conditions inheriting from BTAction and BTPrecondition.
 
@@ -45,14 +52,8 @@ where DistanceClosePrecondition are user defined precondition that inherits from
 DoRun, DoFight, Idle are user defined behaviors that inherit from BTAction.
 
 
-## Benefits
-1. Minimum dependencies on Unity3d, so it won't pollute your inspector.
-2. Extendable to handle customized logic nodes, though classic logic nodes, like sequence, priority selector, parallel, are provided.
-3. Communication between local nodes, cross-tree nodes, and other scripts are possible by the use of blackboard system.
-4. Enter, Execute, Exit api support for action nodes.
 
-
-## Example demos:
+### Example demos:
 Ludum Dare 48-hour game jam entry: [Swordsman] (http://ludumdare.com/compo/ludum-dare-30/?action=preview&uid=24851)
 
 Code Demo: [BT Test Improved] (https://github.com/f15gdsy/BT-Test/tree/improved)
