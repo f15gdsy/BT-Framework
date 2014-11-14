@@ -46,8 +46,10 @@ DoRun, DoFight, Idle are user defined behaviors that inherit from BTAction.
 
 
 ## Benefits
-1. Improves modularity of code
-2. Improves reusability of logics
+1. Minimum dependencies on Unity3d, so it won't pollute your inspector.
+2. Extendable to handle customized logic nodes, though classic logic nodes, like sequence, priority selector, parallel, are provided.
+3. Communication between local nodes, cross-tree nodes, and other scripts are possible by the use of blackboard system.
+4. Enter, Execute, Exit api support for action nodes.
 
 
 ## Example demos:
