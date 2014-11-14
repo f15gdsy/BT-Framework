@@ -16,7 +16,7 @@ namespace BT {
 	/// - Clear
 	/// </summary>
 	public class BTAction : BTNode {
-		private BTActionStatus status = BTActionStatus.Ready;
+		private BTActionStatus _status = BTActionStatus.Ready;
 		
 		public BTAction (BTPrecondition precondition = null) : base (precondition) {}
 
@@ -38,23 +38,23 @@ namespace BT {
 		}
 		
 		public override void Clear () {
-			if (status != BTActionStatus.Ready) {	// not cleared yet
+			if (_status != BTActionStatus.Ready) {	// not cleared yet
 				Exit();
-				status = BTActionStatus.Ready;
+				_status = BTActionStatus.Ready;
 			}
 		}
 		
 		public override BTResult Tick () {
 			BTResult result = BTResult.Ended;
-			if (status == BTActionStatus.Ready) {
+			if (_status == BTActionStatus.Ready) {
 				Enter();
-				status = BTActionStatus.Running;
+				_status = BTActionStatus.Running;
 			}
-			if (status == BTActionStatus.Running) {		// not using else so that the status changes reflect instantly
+			if (_status == BTActionStatus.Running) {		// not using else so that the status changes reflect instantly
 				result = Execute();
 				if (result != BTResult.Running) {
 					Exit();
-					status = BTActionStatus.Ready;
+					_status = BTActionStatus.Ready;
 				}
 			}
 			return result;
