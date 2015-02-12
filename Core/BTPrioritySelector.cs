@@ -24,7 +24,12 @@ namespace BT {
 					return true;
 				}
 			}
-			_activeChild = null;
+
+			if (_activeChild != null) {
+				_activeChild.Clear();
+				_activeChild = null;
+			}
+
 			return false;
 		}
 		
@@ -33,6 +38,7 @@ namespace BT {
 				_activeChild.Clear();
 				_activeChild = null;
 			}
+
 		}
 		
 		public override BTResult Tick () {
