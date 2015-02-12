@@ -60,6 +60,8 @@ public abstract class BTTree : MonoBehaviour {
 	}
 
 	protected void Reset () {
-		_root.Clear();	
+		if (_root != null) {
+			_root.Clear();	
+		}
 	}
 }
